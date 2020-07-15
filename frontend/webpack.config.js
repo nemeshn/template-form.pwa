@@ -1,34 +1,50 @@
 const webpack = require('webpack');
 const path = require('path');
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
+  mode: 'production',
   entry: path.join(__dirname, 'src/index.jsx'),
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: 'bundle.js'
+    filename: 'index_bundle.js'
   },
   resolve: {
     extensions: [".js",".jsx"]
   },
+  plugins: [
+    new HtmlWebpackPlugin({
+      filename: "index.html",
+      template: path.join(__dirname, 'src/index.html')
+    })
+  ],
   module: {       
     rules: [
-    {
-      test: /.jsx?$/,
-      exclude: /node_modules/,
-      include: path.join(__dirname, 'src'),
-      use: [
       {
-        loader: 'babel-loader',
-        options: {
-          "presets": [
-            ["@babel/preset-env", {
-              "modules": false
-            }], "@babel/react"
-          ]
-        }
+        test: /.jsx?$/,
+        exclude: /node_modules/,
+        include: path.join(__dirname, 'src'),
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              "presets": [
+                ["@babel/preset-env", {
+                  "modules": false
+                }], "@babel/react"
+              ]
+            }  
+          }
+        ]
+      },
+      {
+        test: /\.(jpe?g|ico|png|gif|svg)$/i,
+        use: [
+          {
+            loader: 'file-loader?name=img/[name].[ext]'
+          }
+        ]
       }
-      ]
-    }
     ]
   },
   devServer: {

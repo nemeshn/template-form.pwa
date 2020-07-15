@@ -2,7 +2,9 @@
   "name": "pwa-react",
   "version": "1.0.0",
   "scripts": {
-    "start:dev": "webpack-dev-server"
+    "start:dev": "webpack-dev-server",
+    "start": "node_modules\\.bin\\webpack-dev-server",
+    "build": "node_modules\\.bin\\webpack"
   },
   "author": "João Gabriel",
   "license": "ISC",
@@ -12,10 +14,12 @@
     "yarn": "^1.22.4"
   },
   "devDependencies": {
-    "@babel/core": "^7.10.4",
+    "@babel/core": "^7.10.5",
     "@babel/preset-env": "^7.10.4",
     "@babel/preset-react": "^7.10.4",
     "babel-loader": "^8.1.0",
+    "file-loader": "^6.0.0",
+    "html-webpack-plugin": "^4.3.0",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0"
