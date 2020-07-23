@@ -1,7 +1,28 @@
-const webpack = require('webpack');
+const WEBPACK = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+
+
+plugins = [
+  new HtmlWebpackPlugin({
+    filename: "index.html",
+    template: path.join(__dirname, 'src/index.html')
+  }),
+  new MiniCssExtractPlugin({
+    filename: "styles.css"
+  })
+];
+
+if (process.env.NODE_ENV === 'production') {
+  plugins.push(new webpack.DefinePlugin({
+    "process.env": {
+      NODE_ENV: JSON.stringify(process.env.NODE_ENV)
+    }
+  }));
+  plugins.push(new webpack.optimize.UglifyJsPlugin());
+}
 
 module.exports = {
   mode: 'production',
@@ -13,15 +34,10 @@ module.exports = {
   resolve: {
     extensions: [".js",".jsx"]
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      filename: "index.html",
-      template: path.join(__dirname, 'src/index.html')
-    }),
-    new MiniCssExtractPlugin({
-      filename: "styles.css"
-    })
-  ],
+  performance: {
+    hints: false
+  },
+  plugins: plugins,
   module: {       
     rules: [
       {
