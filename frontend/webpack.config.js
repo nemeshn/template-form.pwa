@@ -25,7 +25,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 module.exports = {
-  mode: 'production',
+  mode: 'development', // mode: 'development'  , 'production', 'none'
   entry: path.join(__dirname, 'src/index.jsx'),
   output: {
     filename: 'index_bundle.js',
@@ -33,9 +33,6 @@ module.exports = {
   },
   resolve: {
     extensions: [".js",".jsx"]
-  },
-  performance: {
-    hints: false
   },
   plugins: plugins,
   module: {       
