@@ -7,7 +7,7 @@
       <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
   </head>
   <body>
-    <div id="exemplo"></div>
+    <div id="example"></div>
     <script type="text/babel">
       class OlaReact extends React.Component {                
         render() {
@@ -15,9 +15,9 @@
         }
       }            
       ReactDOM.render(<OlaReact />,                
-        document.querySelector("#exemplo")            
+        document.querySelector("#example")            
       );
-      /* Modo nativo. Nível mais baixo no react.
+      /* Native mode. Lower react level.
       var OlaReact = React.createElement(
         'h1',    
         null,
@@ -25,7 +25,7 @@
       );
       ReactDOM.render(
         OlaReact,
-        document.querySelector("#exemplo")
+        document.querySelector("#example")
       )*/
     </script>
   </body>

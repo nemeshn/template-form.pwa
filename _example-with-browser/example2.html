@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <title>Exemplo no Browser</title>
+      <script src="https://unpkg.com/react@16.7.0/umd/react.production.min.js"></script>
+      <script src="https://unpkg.com/react-dom@16.7.0/umd/react-dom.production.min.js"></script>
+      <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="example"></div>
+    <script type="text/babel">
+      class StateFunc extends React.Component {                
+        constructor(props){
+          super(props)
+          this.state = {
+            color: 'red',
+            contador: 0,
+            h1: 'Olá React'
+          }
+        }
+        changeColor(e) {
+          let contador = this.state.contador; 
+          let color = (++contador % 2) == 0 ? 'red' : 'blue';
+          this.setState({
+            color: color,
+            contador: contador
+          });
+        }
+        render() {
+          const styles = {
+            padding = 10,
+            backgraound = this.state.color
+          }
+          return (
+            <h1
+              style = {styles}
+              onClick = {this.changeColor}
+            >
+              {this.props.text}
+            </h1>
+          )
+        }
+      }            
+      ReactDOM.render(<StateFunc />,                
+        document.querySelector("#example")            
+      );
+    </script>
+  </body>
+</html>

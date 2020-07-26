@@ -1,13 +1,47 @@
 import React from 'react'
-
 import Label from '../Label'
+import Input from '../Input'
 
 class NewUser extends React.Component {
-    render(){
+    constructor(props) {
+        super(props)
+        this.state = {
+            user: {
+                name: ''
+            },
+            validation: {
+                nameInvalid: false
+            }
+        };
+    }
+
+    updateName(e) {
+        let user = this.state.user;
+        user.name = e.target.value;
+        this.setState({
+            user: user
+        });
+    }
+      
+    render() {
         return(
             <div className="center">
-                <form className="pure-form pure-form-stacked">
-                    <Label htmlFor ='name' text ='Baka, Who are you? xD' valueInvalid />
+                <form className="pure.css pure-form pure-form-stacked">
+                    <Label 
+                       htmlFor= 'name' 
+                       text= 'Baka, Who are you? xD' 
+                       valueInvalid= {this.state.nameInvalid}
+                    />
+                    <Input
+                       id= "name"
+                       placeholder= "Enter your name" 
+                       maxLength= "40"
+                       readOnly= {false}
+                       valueInvalid= {this.state.validation.nameInvalid}
+
+                       defaultValue= {this.state.user.name}
+                       onChange= {this.updateName.bind(this)}
+                    />
                 </form>
             </div>
         );
