@@ -1,4 +1,4 @@
-const WEBPACK = require('webpack');
+const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -21,11 +21,13 @@ if (process.env.NODE_ENV === 'production') {
       NODE_ENV: JSON.stringify(process.env.NODE_ENV)
     }
   }));
-  plugins.push(new webpack.optimize.UglifyJsPlugin());
+  plugins.push(
+    new webpack.optimizem.UglifyJsPlugin()
+  );
 }
 
 module.exports = {
-  // mode: 'production', // mode: 'development'  , 'production', 'none'
+  mode: 'development', // mode: 'development'  , 'production', 'none'
   entry: path.join(__dirname, 'src/index.jsx'),
   output: {
     filename: 'index_bundle.js',

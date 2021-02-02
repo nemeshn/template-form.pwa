@@ -1,6 +1,6 @@
-import React from 'react'
-import Label from '../Label'
-import Input from '../Input'
+import React from 'react';
+import Label from '../Label';
+import Input from '../Input';
 
 class NewUser extends React.Component {
     constructor(props) {
@@ -29,12 +29,12 @@ class NewUser extends React.Component {
                 <form className="pure.css pure-form pure-form-stacked">
                     <Label 
                        htmlFor= 'name' 
-                       text= 'Baka, Who are you? xD' 
+                       text= 'Baka, você é fã de anime? xD' 
                        valueInvalid= {this.state.nameInvalid}
                     />
                     <Input
                        id= "name"
-                       placeholder= "Enter your name" 
+                       placeholder= "Mas quem seria você, diga seu nome..." 
                        maxLength= "40"
                        readOnly= {false}
                        valueInvalid= {this.state.validation.nameInvalid}
