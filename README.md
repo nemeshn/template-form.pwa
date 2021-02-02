@@ -1,16 +1,10 @@
 # PWA Template
 
-loading...
+Projeto Experimental de PWA, aprendendo a usar o [React](https://pt-br.reactjs.org/) e o [Webpack](https://webpack.js.org/).
 
-## Versioning
+# Criador
+Create by [@gabrielf7](https://github.com/gabrielf7) :green_heart: :bird:
 
-0.1.0
+## Licença
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](https://github.com/gabrielf7/dev-pwa/blob/master/LICENSE) file for details.
-
-Create by [@gabrielf7](https://github.com/gabrielf7)
-
-### Please follow github and join us!
-Thanks to visiting me and good coding!
+This project is licensed under the MIT License - see the [MIT](https://github.com/gabrielf7/devpwa-form/blob/master/LICENSE) file for details.
