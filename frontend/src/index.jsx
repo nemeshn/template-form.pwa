@@ -4,9 +4,6 @@ import ReactDOM from 'react-dom';
 import './img/favicon.ico';
 import './css/index.css';
 import './css/pure-min.css';
-import App from './components/App.jsx';
+import App from './components/App';
 
-ReactDOM.render(
-    <App />,
-    document.querySelector("#main")
-)
+ReactDOM.render(<App />, document.querySelector('#main'));

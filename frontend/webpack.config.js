@@ -1,29 +1,26 @@
 const webpack = require('webpack');
 const path = require('path');
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+// const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
-
-plugins = [
+const plugins = [
   new HtmlWebpackPlugin({
-    filename: "index.html",
-    template: path.join(__dirname, 'src/index.html')
+    filename: 'index.html',
+    template: path.join(__dirname, 'src/index.html'),
   }),
   new MiniCssExtractPlugin({
-    filename: "styles.css"
-  })
+    filename: 'styles.css',
+  }),
 ];
 
 if (process.env.NODE_ENV === 'production') {
   plugins.push(new webpack.DefinePlugin({
-    "process.env": {
-      NODE_ENV: JSON.stringify(process.env.NODE_ENV)
-    }
+    'process.env': {
+      NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+    },
   }));
-  plugins.push(
-    new webpack.optimizem.UglifyJsPlugin()
-  );
+  plugins.push(new webpack.optimize.UglifyJsPlugin());
 }
 
 module.exports = {
@@ -31,13 +28,13 @@ module.exports = {
   entry: path.join(__dirname, 'src/index.jsx'),
   output: {
     filename: 'index_bundle.js',
-    path: path.join(__dirname, 'dist')
+    path: path.join(__dirname, 'dist'),
   },
   resolve: {
-    extensions: [".js",".jsx"]
+    extensions: ['.js', '.jsx'],
   },
-  plugins: plugins,
-  module: {       
+  plugins,
+  module: {
     rules: [
       {
         test: /.jsx?$/,
@@ -47,34 +44,34 @@ module.exports = {
           {
             loader: 'babel-loader',
             options: {
-              "presets": [
-                ["@babel/preset-env", {
-                  "modules": false
-                }], "@babel/react"
-              ]
-            }  
-          }
-        ]
+              presets: [
+                ['@babel/preset-env', {
+                  modules: false,
+                }], '@babel/react',
+              ],
+            },
+          },
+        ],
       },
       {
         test: /\.(jpe?g|ico|png|gif|svg)$/i,
         use: [
           {
-            loader: 'file-loader?name=img/[name].[ext]'
-          }
-        ]
+            loader: 'file-loader?name=img/[name].[ext]',
+          },
+        ],
       },
       {
         test: /\.css$/i,
         use: [
           MiniCssExtractPlugin.loader,
-          "css-loader"
+          'css-loader',
         ],
       },
     ],
   },
   devServer: {
-    publicPath: "/",
-    contentBase: "./dist"
-  }
+    publicPath: '/',
+    contentBase: './dist',
+  },
 };
