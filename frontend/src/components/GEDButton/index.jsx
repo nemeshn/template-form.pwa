@@ -9,7 +9,7 @@ export default function GEDButton(props) {
 
   return (
     <a
-      className={selected ? 'gender-button selected-gender-button' : 'gender-button'}
+      className={selected ? 'ged-button selected-ged-button' : 'ged-button'}
       href="#!"
       onClick={(event) => updateGenero(event, genero)}
     >
@@ -21,6 +21,6 @@ export default function GEDButton(props) {
 }
 GEDButton.propTypes = {
   selected: PropTypes.bool.isRequired,
-  updateGenero: PropTypes.string.isRequired,
+  updateGenero: PropTypes.func.isRequired,
   genero: PropTypes.string.isRequired,
 };

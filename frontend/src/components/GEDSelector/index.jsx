@@ -32,6 +32,6 @@ export default function GEDSelector(props) {
 }
 GEDSelector.propTypes = {
   valueInvalid: PropTypes.bool.isRequired,
-  updateGenero: PropTypes.string.isRequired,
+  updateGenero: PropTypes.func.isRequired,
   genero: PropTypes.string.isRequired,
 };

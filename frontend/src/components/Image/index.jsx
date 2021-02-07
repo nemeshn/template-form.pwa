@@ -7,7 +7,6 @@ class Image extends React.Component {
     super(props);
     this.state = {};
   }
-  // this.props
 
   calcPositionX() {
     const { axisX, width } = this.props;
