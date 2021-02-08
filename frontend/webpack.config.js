@@ -23,6 +23,8 @@ if (process.env.NODE_ENV === 'production') {
   plugins.push(new webpack.optimize.UglifyJsPlugin());
 }
 
+// sourceMapFilename: '[name].js.map',
+
 module.exports = {
   mode: 'development', // mode: 'development'  , 'production', 'none'
   entry: path.join(__dirname, 'src/index.jsx'),
@@ -30,6 +32,7 @@ module.exports = {
     filename: 'index_bundle.js',
     path: path.join(__dirname, 'dist'),
   },
+  devtool: 'source-map',
   resolve: {
     extensions: ['.js', '.jsx'],
   },

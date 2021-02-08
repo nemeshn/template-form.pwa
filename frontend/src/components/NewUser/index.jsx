@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Label from '../Label';
 import Input from '../Input';
 import GEDSelector from '../GEDSelector';
@@ -14,15 +15,16 @@ class NewUser extends React.Component {
         nameInvalid: false,
         generoInvalid: false,
       },
+      pStagefull: false,
     };
     this.updateName = this.updateName.bind(this);
     this.updateGenero = this.updateGenero.bind(this);
     this.validateButton = this.validateButton.bind(this);
   }
 
-  updateName(e) {
+  updateName(event) {
     const { user } = this.state;
-    user.name = e.target.value;
+    user.name = event.target.value;
     this.setState({ user });
   }
 
@@ -35,10 +37,28 @@ class NewUser extends React.Component {
 
   validateButton(event) {
     event.preventDefault();
+    const { errorMSG } = this.props;
+    let { pStagefull } = this.state;
     const { validation, user } = this.state;
     validation.nameInvalid = !user.validateName();
     validation.generoInvalid = !user.validateGenero();
-    this.setState({ validation });
+    let message = '';
+    pStagefull = false;
+    if (validation.nameInvalid && validation.generoInvalid) {
+      message = 'Os campos nome e gênero estão inválidos!';
+    } else if (validation.nameInvalid) {
+      message = 'Seu nome está inválido!';
+    } else if (validation.generoInvalid) {
+      message = 'Selecione seu gênero!';
+    } else {
+      pStagefull = true;
+    } if (!pStagefull) {
+      errorMSG(message);
+    }
+    this.setState({
+      validation,
+      pStagefull,
+    });
   }
 
   render() {
@@ -77,5 +97,8 @@ class NewUser extends React.Component {
     );
   }
 }
+NewUser.propTypes = {
+  errorMSG: PropTypes.func.isRequired,
+};
 
 export default NewUser;
