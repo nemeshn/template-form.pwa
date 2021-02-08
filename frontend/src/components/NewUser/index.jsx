@@ -1,10 +1,11 @@
+/* eslint-disable prefer-const */
 import React from 'react';
-import PropTypes from 'prop-types';
 import Label from '../Label';
 import Input from '../Input';
 import GEDSelector from '../GEDSelector';
 import Users from '../../models/Users';
 import Button from '../Button';
+import { errorMSG } from '../Toast';
 
 class NewUser extends React.Component {
   constructor(props) {
@@ -37,11 +38,11 @@ class NewUser extends React.Component {
 
   validateButton(event) {
     event.preventDefault();
-    const { errorMSG } = this.props;
     let { pStagefull } = this.state;
-    const { validation, user } = this.state;
+    const { user, validation } = this.state;
     validation.nameInvalid = !user.validateName();
     validation.generoInvalid = !user.validateGenero();
+
     let message = '';
     pStagefull = false;
     if (validation.nameInvalid && validation.generoInvalid) {
@@ -52,53 +53,102 @@ class NewUser extends React.Component {
       message = 'Selecione seu gênero!';
     } else {
       pStagefull = true;
-    } if (!pStagefull) {
+    }
+
+    if (!pStagefull) {
       errorMSG(message);
     }
+
     this.setState({
       validation,
       pStagefull,
     });
   }
 
-  render() {
-    const { validation, user } = this.state;
+  renderName() {
+    const { validation, user, pStagefull } = this.state;
 
+    return (
+      <section>
+        <Label
+          htmlFor="name"
+          text="Baka, você é fã de anime? xD"
+          valueInvalid={validation.nameInvalid}
+        />
+        <Input
+          id="name"
+          placeholder="Mas quem seria você, diga seu nome..."
+          maxLength="40"
+          readOnly={pStagefull}
+          valueInvalid={validation.nameInvalid}
+          defaultValue={user.name}
+          onChange={this.updateName}
+        />
+      </section>
+    );
+  }
+
+  renderGenero() {
+    const { validation, user, pStagefull } = this.state;
+
+    if (pStagefull) { return null; }
+
+    return (
+      <section>
+        <Label htmlFor="#!" text="Seu gênero:" valueInvalid={validation.generoInvalid} />
+        <GEDSelector
+          valueInvalid={validation.generoInvalid}
+          genero={user.genero}
+          updateGenero={this.updateGenero}
+        />
+      </section>
+    );
+  }
+
+  renderButtons() {
+    const { pStagefull } = this.state;
+
+    if (pStagefull) {
+      return (
+        <section>
+          <Button
+            main
+            text="Voltar"
+            onClickButton={(event) => {
+              event.preventDefault();
+              this.setState({
+                pStagefull: false,
+              });
+            }}
+          />
+          <Button
+            text="Salvar"
+          />
+        </section>
+      );
+    }
+    return (
+      <section>
+        <Button
+          main
+          text="Próximo"
+          onClickButton={this.validateButton}
+        />
+      </section>
+    );
+  }
+
+  render() {
     return (
       <div className="center">
         <form className="pure.css pure-form pure-form-stacked">
-          <Label
-            htmlFor="name"
-            text="Baka, você é fã de anime? xD"
-            valueInvalid={validation.nameInvalid}
-          />
-          <Input
-            id="name"
-            placeholder="Mas quem seria você, diga seu nome..."
-            maxLength="40"
-            readOnly={false}
-            valueInvalid={validation.nameInvalid}
-            defaultValue={user.name}
-            onChange={this.updateName}
-          />
-          <Label htmlFor="#!" text="Seu gênero:" valueInvalid={validation.generoInvalid} />
-          <GEDSelector
-            valueInvalid={validation.generoInvalid}
-            genero={user.genero}
-            updateGenero={this.updateGenero}
-          />
-          <Button
-            main
-            text="Próximo"
-            onClickButton={this.validateButton}
-          />
+          {this.renderName()}
+          {this.renderGenero()}
+          {this.renderButtons()}
         </form>
       </div>
     );
   }
 }
-NewUser.propTypes = {
-  errorMSG: PropTypes.func.isRequired,
-};
 
 export default NewUser;

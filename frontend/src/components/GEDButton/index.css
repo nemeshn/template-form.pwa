@@ -1,8 +1,11 @@
 a.ged-button {
+  width: 180px;
+  height: 180px;
+  margin: 3px;
+  display: inline-block;
   box-sizing: border-box;
-  width:180px;height:180px;
-  border-radius:10px;margin:3px;
-  padding-top:5px;display: inline-block;
+  border-radius: 10px;
+  padding-top: 5px; 
 }
 a.ged-button:hover {
   background-color:#bdbdbd;

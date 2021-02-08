@@ -1,11 +1,11 @@
 class Users {
   constructor() {
-    this.nome = '';
+    this.name = '';
     this.genero = '';
   }
 
   validateName() {
-    if ((typeof this.nome === 'string') && (this.nome.length !== 0) && (this.nome.length <= 40)) {
+    if ((typeof this.name === 'string') && ((this.name.length !== 0) && (this.name.length <= 40))) {
       return true;
     }
     return false;

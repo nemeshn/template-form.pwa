@@ -1,24 +1,20 @@
 import React from 'react';
 import Header from './Header';
 import NewUser from './NewUser';
-import Toast from './Toast';
+import { Toast } from './Toast';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.refToast = React.createRef();
+    this.state = {};
   }
 
   render() {
     return (
       <div>
         <Header />
-        <NewUser
-          errorMSG={(msg) => this.refToast.toast.errorMSG(msg)}
-        />
-        <Toast
-          ref={this.refToast}
-        />
+        <NewUser />
+        <Toast />
       </div>
     );
   }
