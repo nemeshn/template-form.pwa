@@ -1,7 +1,13 @@
+import Avatar from './Avatar';
+
 class Users {
   constructor() {
     this.name = '';
     this.genero = '';
+    this.avatar = () => {
+      const { acquireAll } = Avatar.acquireAll();
+      return acquireAll[0];
+    };
   }
 
   validateName() {

@@ -1,0 +1,9 @@
+div.option-image-scroller {
+  margin: 62px 2px 02px;
+  border-radius: 50%;
+  padding: 4px;
+  background-color:#bdbdbd;
+}
+div.option-image-scroller:hover {
+  background-color:#8d8d8d;
+}

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './img/avatars.png';
+import './img/buttons.png';
 
 class Image extends React.Component {
   constructor(props) {
