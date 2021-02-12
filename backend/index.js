@@ -1,1 +1,2 @@
-console.logo("<p>Inicinando</p>");
+let nameUser = 'João';
+console.logo(`<p>Olá, ${nameUser}, inicinando atividades...</p>`);
