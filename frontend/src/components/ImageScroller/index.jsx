@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Image from '../Image';
-// import ButtonImage from '../ButtonImage';
+import ButtonImage from '../ButtonImage';
 import ManipularEvento from './ManipularEvento';
 
 class ImageScroller extends React.Component {
@@ -14,6 +14,7 @@ class ImageScroller extends React.Component {
         selected.index,
       ),
     };
+    // this.renderSelected = this.renderSelected.bind(this);
   }
 
   acquireSelecting() {
@@ -81,12 +82,61 @@ class ImageScroller extends React.Component {
       </ul>
     );
   }
+
+  static renderSelected() {
+    return (
+      <span
+        style={{
+          float: 'left',
+          width: '140px',
+          height: '160px',
+          marginLeft: '42px',
+          backgroundColor: '#00C853',
+          position: 'relative',
+          zIndex: -2,
+        }}
+      />
+    );
+  }
+
+  renderButtonImage(position) {
+    const { onChange } = this.props;
+    const { manipularEvento } = this.state;
+    return (
+      <ButtonImage
+        position={position}
+        onClick={(event) => {
+          event.preventDefault();
+          let { index } = manipularEvento;
+          if (position === 'pstLeft') {
+            index += -1;
+          } else {
+            index += 1;
+          }
+          manipularEvento.definirIndex(index);
+          manipularEvento.atualizarClique();
+          this.setState({ manipularEvento }, () => {
+            onChange(this.acquireSelecting());
+          });
+        }}
+      />
+    );
+  }
+
+  render() {
+    return (
+      <>
+        Oi
+      </>
+    );
+  }
 }
 ImageScroller.propTypes = {
   elements: PropTypes.arrayOf.isRequired,
   selected: PropTypes.number.isRequired,
   axisY: PropTypes.number.isRequired,
   file: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 export default ImageScroller;
