@@ -14,7 +14,32 @@ class ImageScroller extends React.Component {
         selected.index,
       ),
     };
-    // this.renderSelected = this.renderSelected.bind(this);
+    this.onTouchStart = this.onTouchStart.bind(this);
+    this.onTouchMove = this.onTouchMove.bind(this);
+    this.onTouchEnd = this.onTouchEnd.bind(this);
+  }
+
+  onTouchStart(event) {
+    const { clientX } = event.targetTouches[0].clientX;
+    const { manipularEvento } = this.state;
+    manipularEvento.iniciar(clientX);
+    this.setState({ manipularEvento });
+  }
+
+  onTouchMove(event) {
+    const { clientX } = event.targetTouches[0].clientX;
+    const { manipularEvento } = this.state;
+    manipularEvento.mover(clientX);
+    this.setState({ manipularEvento });
+  }
+
+  onTouchEnd() {
+    const { onChange } = this.props;
+    const { manipularEvento } = this.state;
+    manipularEvento.atualizarToque();
+    this.setState({ manipularEvento }, () => {
+      onChange(this.acquireSelecting());
+    });
   }
 
   acquireSelecting() {
@@ -105,6 +130,9 @@ class ImageScroller extends React.Component {
     return (
       <ButtonImage
         position={position}
+        onTouchStart={(e) => e.stopPropagation()}
+        onTouchMove={(e) => e.stopPropagation()}
+        onTouchEnd={(e) => e.stopPropagation()}
         onClick={(event) => {
           event.preventDefault();
           let { index } = manipularEvento;
@@ -120,6 +148,61 @@ class ImageScroller extends React.Component {
           });
         }}
       />
+    );
+  }
+
+  renderImageScroller() {
+    const styled = {
+      width: '310px',
+      height: '160px',
+      overflow: 'hidden',
+      boxSizing: 'border-box',
+      borderWidth: '1px',
+      borderBottomWidth: '0',
+      borderStyle: 'solid',
+      borderColor: '#cccccc',
+      borderRadius: '5px',
+      borderBottomLeftRadius: '0',
+      borderBottomRightRadius: '0',
+    };
+
+    return (
+      <div
+        style={styled}
+        onTouchStart={this.onTouchStart}
+        onTouchMove={this.onTouchMove}
+        onTouchEnd={this.onTouchEnd}
+      >
+        {this.renderButtonImage('pstLeft')}
+        {ImageScroller.renderSelected()}
+        {this.renderUlImages()}
+        {this.renderButtonImage('pstRight')}
+      </div>
+    );
+  }
+
+  renderizarLabel() {
+    const styled = {
+      boxSizing: 'border-box',
+      borderWidth: '1px',
+      borderStyle: 'solid',
+      borderTopWidth: '0',
+      borderColor: '#cccccc',
+      borderRadius: '5px',
+      borderTopLeftRadius: '0',
+      borderTopRightRadius: '0',
+      backgroundColor: '#cccccc',
+      color: '#444444',
+      fontSize: '20px',
+      textAlign: 'center',
+      padding: '5px',
+      width: '310px',
+    };
+
+    return (
+      <div style={styled}>
+        {this.acquireSelecting().toString()}
+      </div>
     );
   }
 
