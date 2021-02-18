@@ -1,11 +1,16 @@
-/* eslint-disable prefer-const */
+/* eslint-disable prefer-destructuring */
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import Label from '../Label';
 import Input from '../Input';
 import GEDSelector from '../GEDSelector';
-import Users from '../../models/Users';
 import Button from '../Button';
 import { errorMSG } from '../Toast';
+import ImageScroller from '../ImageScroller';
+
+import Users from '../../models/Users';
+import Avatar from '../../models/Avatar';
 
 class NewUser extends React.Component {
   constructor(props) {
@@ -21,6 +26,7 @@ class NewUser extends React.Component {
     this.updateName = this.updateName.bind(this);
     this.updateGenero = this.updateGenero.bind(this);
     this.validateButton = this.validateButton.bind(this);
+    // this.avatar = Avatar.acquireAll()[0];
   }
 
   updateName(event) {
@@ -33,6 +39,7 @@ class NewUser extends React.Component {
     event.preventDefault();
     const { user } = this.state;
     user.genero = genero;
+    user.avatar = Avatar.acquireAll()[0];
     this.setState({ user });
   }
 
@@ -106,23 +113,30 @@ class NewUser extends React.Component {
   }
 
   renderButtons() {
-    const { pStagefull } = this.state;
+    const { onSubmitButton } = this.props;
+    const { pStagefull, user } = this.state;
 
     if (pStagefull) {
       return (
         <section>
           <Button
-            main
             text="Voltar"
             onClickButton={(event) => {
               event.preventDefault();
+              user.avatar = Avatar.acquireAll()[0];
               this.setState({
+                user,
                 pStagefull: false,
               });
             }}
           />
           <Button
+            main
             text="Salvar"
+            onClickButton={(event) => {
+              event.preventDefault();
+              onSubmitButton(user);
+            }}
           />
         </section>
       );
@@ -138,17 +152,48 @@ class NewUser extends React.Component {
     );
   }
 
+  renderAvatar() {
+    const { pStagefull, user } = this.state;
+
+    if (pStagefull) {
+      return (
+        <section>
+          <Label
+            text="Escolha seu avatar:"
+          />
+          <ImageScroller
+            file="img/avatars.png"
+            axisY={(user.genero === 'm' ? 0 : 1)}
+            elements={Avatar.acquireAll()}
+            selected={user.avatar}
+            onChangeButtonImg={(avatar) => {
+              user.avatar = avatar;
+              this.setState({
+                user,
+              });
+            }}
+          />
+        </section>
+      );
+    }
+    return null;
+  }
+
   render() {
     return (
       <div className="center">
         <form className="pure.css pure-form pure-form-stacked">
           {this.renderName()}
           {this.renderGenero()}
+          {this.renderAvatar()}
           {this.renderButtons()}
         </form>
       </div>
     );
   }
 }
+NewUser.propTypes = {
+  onSubmitButton: PropTypes.func.isRequired,
+};
 
 export default NewUser;

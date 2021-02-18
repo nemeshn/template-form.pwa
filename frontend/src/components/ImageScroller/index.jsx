@@ -14,9 +14,6 @@ class ImageScroller extends React.Component {
         selected.index,
       ),
     };
-    this.onTouchStart = this.onTouchStart.bind(this);
-    this.onTouchMove = this.onTouchMove.bind(this);
-    this.onTouchEnd = this.onTouchEnd.bind(this);
   }
 
   onTouchStart(event) {
@@ -34,11 +31,11 @@ class ImageScroller extends React.Component {
   }
 
   onTouchEnd() {
-    const { onChange } = this.props;
+    const { onChangeButtonImg } = this.props;
     const { manipularEvento } = this.state;
     manipularEvento.atualizarToque();
     this.setState({ manipularEvento }, () => {
-      onChange(this.acquireSelecting());
+      onChangeButtonImg(this.acquireSelecting());
     });
   }
 
@@ -52,8 +49,8 @@ class ImageScroller extends React.Component {
 
   renderLiImage(entry, index) {
     const { axisY, file } = this.props;
-    // let iAxisY = axisY ? axisY : 0;
-    const iAxisY = axisY || 0;
+    // eslint-disable-next-line no-unneeded-ternary
+    const iAxisY = axisY ? axisY : 0;
 
     return (
       <li
@@ -108,7 +105,8 @@ class ImageScroller extends React.Component {
     );
   }
 
-  static renderSelected() {
+  // eslint-disable-next-line class-methods-use-this
+  renderSelected() {
     return (
       <span
         style={{
@@ -125,7 +123,7 @@ class ImageScroller extends React.Component {
   }
 
   renderButtonImage(position) {
-    const { onChange } = this.props;
+    const { onChangeButtonImg } = this.props;
     const { manipularEvento } = this.state;
     return (
       <ButtonImage
@@ -144,7 +142,7 @@ class ImageScroller extends React.Component {
           manipularEvento.definirIndex(index);
           manipularEvento.atualizarClique();
           this.setState({ manipularEvento }, () => {
-            onChange(this.acquireSelecting());
+            onChangeButtonImg(this.acquireSelecting());
           });
         }}
       />
@@ -169,20 +167,22 @@ class ImageScroller extends React.Component {
     return (
       <div
         style={styled}
-        onTouchStart={this.onTouchStart}
-        onTouchMove={this.onTouchMove}
-        onTouchEnd={this.onTouchEnd}
+        onTouchStart={this.onTouchStart.bind(this)}
+        onTouchMove={this.onTouchMove.bind(this)}
+        onTouchEnd={this.onTouchEnd.bind(this)}
       >
         {this.renderButtonImage('pstLeft')}
-        {ImageScroller.renderSelected()}
+        {this.renderSelected()}
         {this.renderUlImages()}
         {this.renderButtonImage('pstRight')}
       </div>
     );
   }
 
-  renderizarLabel() {
+  renderLabel() {
     const styled = {
+      padding: '5px',
+      width: '310px',
       boxSizing: 'border-box',
       borderWidth: '1px',
       borderStyle: 'solid',
@@ -193,10 +193,8 @@ class ImageScroller extends React.Component {
       borderTopRightRadius: '0',
       backgroundColor: '#cccccc',
       color: '#444444',
-      fontSize: '20px',
       textAlign: 'center',
-      padding: '5px',
-      width: '310px',
+      fontSize: '20px',
     };
 
     return (
@@ -208,9 +206,10 @@ class ImageScroller extends React.Component {
 
   render() {
     return (
-      <>
-        Oi
-      </>
+      <div>
+        {this.renderImageScroller()}
+        {this.renderLabel()}
+      </div>
     );
   }
 }
@@ -219,7 +218,7 @@ ImageScroller.propTypes = {
   selected: PropTypes.number.isRequired,
   axisY: PropTypes.number.isRequired,
   file: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
+  onChangeButtonImg: PropTypes.func.isRequired,
 };
 
 export default ImageScroller;

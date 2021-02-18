@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from './Header';
 import NewUser from './NewUser';
-import { Toast } from './Toast';
+import { Toast, sucessMSG } from './Toast';
 
 class App extends React.Component {
   constructor(props) {
@@ -13,7 +13,14 @@ class App extends React.Component {
     return (
       <div>
         <Header />
-        <NewUser />
+        <NewUser
+          onSubmitButton={(user) => {
+            const genero = user.genero === 'm' ? 'o' : 'a';
+            sucessMSG(
+              `Seja bem-vind${genero} ${user.name}!`,
+            );
+          }}
+        />
         <Toast />
       </div>
     );

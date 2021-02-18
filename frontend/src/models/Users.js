@@ -1,13 +1,16 @@
+/* eslint-disable prefer-destructuring */
 import Avatar from './Avatar';
 
 class Users {
   constructor() {
     this.name = '';
     this.genero = '';
-    this.avatar = () => {
-      const { acquireAll } = Avatar.acquireAll();
-      return acquireAll[0];
-    };
+    this.avatar = Avatar.acquireAll()[0];
+    // () => {
+    //   const { acquireAll } = Avatar.acquireAll();
+    //   return acquireAll[0];
+    // };
+    // Avatar.acquireAll()[0];
   }
 
   validateName() {

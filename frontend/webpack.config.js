@@ -1,8 +1,9 @@
+/* eslint-disable no-unused-vars */
 const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-// const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const plugins = [
   new HtmlWebpackPlugin({
@@ -26,7 +27,7 @@ if (process.env.NODE_ENV === 'production') {
 // sourceMapFilename: '[name].js.map',
 
 module.exports = {
-  mode: 'development', // mode: 'development'  , 'production', 'none'
+  mode: 'production', // mode: 'development'  , 'production', 'none'
   entry: path.join(__dirname, 'src/index.jsx'),
   output: {
     filename: 'index_bundle.js',
@@ -74,7 +75,9 @@ module.exports = {
     ],
   },
   devServer: {
+    // compress: true,
     publicPath: '/',
     contentBase: './dist',
+    headers: { 'Cache-Control': 'max-age=600' },
   },
 };
