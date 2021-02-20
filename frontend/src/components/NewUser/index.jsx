@@ -1,4 +1,5 @@
 /* eslint-disable prefer-destructuring */
+
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -163,10 +164,10 @@ class NewUser extends React.Component {
           />
           <ImageScroller
             file="img/avatars.png"
-            axisY={(user.genero === 'm' ? 0 : 1)}
+            axisY={user.genero === 'm' ? 0 : 1}
             elements={Avatar.acquireAll()}
             selected={user.avatar}
-            onChangeButtonImg={(avatar) => {
+            onChange={(avatar) => {
               user.avatar = avatar;
               this.setState({
                 user,

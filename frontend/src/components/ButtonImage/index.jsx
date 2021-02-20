@@ -7,7 +7,6 @@ import Image from '../Image';
 export default function ButtonImage(props) {
   const { position } = props;
   const styled = {}; let index = 0;
-  const property = { ...props };
   const tamanho = 30;
 
   if (position === 'pstRight') {
@@ -15,12 +14,13 @@ export default function ButtonImage(props) {
   } else {
     styled.float = 'left'; index = 0;
   }
+  const property = { ...props };
   delete property.position;
 
   return (
     <div
       style={styled}
-      className="option-image-scrolle"
+      className="option-image-scroller"
       {...property}
     >
       <Image

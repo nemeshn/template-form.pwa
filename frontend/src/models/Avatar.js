@@ -3,13 +3,16 @@ class Avatar {
     this.index = index; this.description = description;
   }
 
-  static acquireAll() {
-    return Array(23).fill(0).map(
-      (entry, cont) => new Avatar(cont, `Avatar ${cont + 1}`),
-    );
+  toString() {
+    return this.description;
   }
 
-  toString() { return this.description; }
+  static acquireAll() {
+    // eslint-disable-next-line arrow-body-style
+    return Array(23).fill(0).map((entry, cont) => {
+      return new Avatar(cont, `Avatar ${cont + 1}`);
+    });
+  }
 }
 
 export default Avatar;

@@ -17,26 +17,29 @@ class ImageScroller extends React.Component {
   }
 
   onTouchStart(event) {
-    const { clientX } = event.targetTouches[0].clientX;
+    const { clientX } = event.targetTouches[0];
     const { manipularEvento } = this.state;
     manipularEvento.iniciar(clientX);
     this.setState({ manipularEvento });
   }
 
   onTouchMove(event) {
-    const { clientX } = event.targetTouches[0].clientX;
+    const { clientX } = event.targetTouches[0];
     const { manipularEvento } = this.state;
     manipularEvento.mover(clientX);
     this.setState({ manipularEvento });
   }
 
-  onTouchEnd() {
-    const { onChangeButtonImg } = this.props;
-    const { manipularEvento } = this.state;
-    manipularEvento.atualizarToque();
-    this.setState({ manipularEvento }, () => {
-      onChangeButtonImg(this.acquireSelecting());
-    });
+  onTouchEnd(event) {
+    console.log(event);
+    if (event) {
+      const { onChange } = this.props;
+      const { manipularEvento } = this.state;
+      manipularEvento.atualizarToque();
+      this.setState({ manipularEvento }, () => {
+        onChange(this.acquireSelecting());
+      });
+    }
   }
 
   acquireSelecting() {
@@ -49,8 +52,7 @@ class ImageScroller extends React.Component {
 
   renderLiImage(entry, index) {
     const { axisY, file } = this.props;
-    // eslint-disable-next-line no-unneeded-ternary
-    const iAxisY = axisY ? axisY : 0;
+    const iAxisY = axisY === 1 ? axisY : 0;
 
     return (
       <li
@@ -80,18 +82,18 @@ class ImageScroller extends React.Component {
     const tempMS = manipularEvento.toqueEmExecucao ? '100ms' : '800ms';
 
     const styled = {
-      margin: '0',
-      padding: '0',
-      position: 'relative',
-      width: `${elements.length * 140}px`,
-      left: `${manipularEvento.left}px`,
-      listStyleType: 'none',
-
       WebkitTransitionDuration: tempMS, /* Safari e Chrome */
       MsTransitionDuration: tempMS, /* IE */
       MozTransitionDuration: tempMS, /* Firefox */
       OTransitionDuration: tempMS, /* Opera */
       transitionDuration: tempMS, /* Nativa do W3C */
+
+      margin: '0',
+      padding: '0',
+      width: `${elements.length * 140}px`,
+      position: 'relative',
+      listStyleType: 'none',
+      left: `${manipularEvento.left}px`,
     };
 
     const listElements = elements.map(
@@ -123,14 +125,14 @@ class ImageScroller extends React.Component {
   }
 
   renderButtonImage(position) {
-    const { onChangeButtonImg } = this.props;
+    const { onChange } = this.props;
     const { manipularEvento } = this.state;
     return (
       <ButtonImage
         position={position}
-        onTouchStart={(e) => e.stopPropagation()}
-        onTouchMove={(e) => e.stopPropagation()}
-        onTouchEnd={(e) => e.stopPropagation()}
+        // onTouchStart={(event) => event.stopPropagation()}
+        // onTouchMove={(event) => event.stopPropagation()}
+        // onTouchEnd={(event) => event.stopPropagation()}
         onClick={(event) => {
           event.preventDefault();
           let { index } = manipularEvento;
@@ -142,7 +144,7 @@ class ImageScroller extends React.Component {
           manipularEvento.definirIndex(index);
           manipularEvento.atualizarClique();
           this.setState({ manipularEvento }, () => {
-            onChangeButtonImg(this.acquireSelecting());
+            onChange(this.acquireSelecting());
           });
         }}
       />
@@ -218,7 +220,7 @@ ImageScroller.propTypes = {
   selected: PropTypes.number.isRequired,
   axisY: PropTypes.number.isRequired,
   file: PropTypes.string.isRequired,
-  onChangeButtonImg: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 export default ImageScroller;
