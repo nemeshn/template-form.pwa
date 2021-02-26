@@ -8,15 +8,15 @@ export default function GEDButton(props) {
   const { genero, selected, updateGenero } = props;
 
   return (
-    <a
+    <button
+      type="button"
       className={selected ? 'ged-button selected-ged-button' : 'ged-button'}
-      href="#!"
       onClick={(event) => updateGenero(event, genero)}
     >
       <GEDImage
         genero={genero}
       />
-    </a>
+    </button>
   );
 }
 GEDButton.propTypes = {

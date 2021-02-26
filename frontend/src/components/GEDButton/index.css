@@ -1,18 +1,18 @@
-a.ged-button {
+button.ged-button {
   width: 180px;
   height: 180px;
   margin: 3px;
   display: inline-block;
   box-sizing: border-box;
   border-radius: 10px;
-  padding-top: 5px; 
+  padding-top: 5px;
 }
-a.ged-button:hover {
+button.ged-button:hover {
   background-color:#bdbdbd;
 }
-a.selected-ged-button {
+button.selected-ged-button {
   background-color:#00C853;
 }
-a.selected-ged-button:hover {
+button.selected-ged-button:hover {
   background-color:#00C853;
 }
