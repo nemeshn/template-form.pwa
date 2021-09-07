@@ -7,7 +7,6 @@ import Label from '../Label';
 import Input from '../Input';
 import GEDSelector from '../GEDSelector';
 import Button from '../Button';
-import { errorMSG } from '../Toast';
 import ImageScroller from '../ImageScroller';
 
 import Users from '../../models/Users';
@@ -46,6 +45,7 @@ class NewUser extends React.Component {
 
   validateButton(event) {
     event.preventDefault();
+    const { resErrorMSG } = this.props;
     let { pStagefull } = this.state;
     const { user, validation } = this.state;
     validation.nameInvalid = !user.validateName();
@@ -64,7 +64,7 @@ class NewUser extends React.Component {
     }
 
     if (!pStagefull) {
-      errorMSG(message);
+      resErrorMSG(message);
     }
 
     this.setState({
@@ -195,6 +195,7 @@ class NewUser extends React.Component {
 }
 NewUser.propTypes = {
   onSubmitButton: PropTypes.func.isRequired,
+  resErrorMSG: PropTypes.func.isRequired,
 };
 
 export default NewUser;
