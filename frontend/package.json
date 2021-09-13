@@ -4,7 +4,7 @@
   "homepage": "https://gabrielf7.github.io/template-form.pwa",
   "scripts": {
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
+    "deploy": "gh-pages -d dist",
     "start:dev": "webpack-dev-server",
     "start": "set NODE_ENV=development && node_modules\\.bin\\webpack-dev-server",
     "build": "set NODE_ENV=production && webpack --mode production",
